@@ -1,0 +1,13 @@
+<Project>
+    <PropertyGroup>
+        <TargetFrameworkVersion>net6.0</TargetFrameworkVersion>
+        <AzureIdentityVersion>1.8.2</AzureIdentityVersion>
+        <MicrosoftExtensionsConfigurationVersion>6.0.1</MicrosoftExtensionsConfigurationVersion>
+        <MicrosoftExtensionsConfigurationFileExtensionsVersion>6.0.0</MicrosoftExtensionsConfigurationFileExtensionsVersion>
+        <MicrosoftExtensionsConfigurationJsonVersion>6.0.0</MicrosoftExtensionsConfigurationJsonVersion>
+        <MicrosoftExtensionsConfigurationUserSecretsVersion>6.0.1</MicrosoftExtensionsConfigurationUserSecretsVersion>
+        <MicrosoftGraphVersion>4.53.0</MicrosoftGraphVersion>
+        <MicrosoftGraphCoreVersion>2.0.15</MicrosoftGraphCoreVersion>
+        <MicrosoftIdentityClientVersion>4.49.1</MicrosoftIdentityClientVersion>
+    </PropertyGroup>
+</Project>
