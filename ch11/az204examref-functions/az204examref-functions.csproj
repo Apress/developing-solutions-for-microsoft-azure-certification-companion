@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>$(TargetFrameworkVersion)</TargetFramework>
+    <AzureFunctionsVersion>$(AzureFunctionsVersion)</AzureFunctionsVersion>
+    <RootNamespace>az204examref_functions</RootNamespace>
+    <UserSecretsId>8df228be-5755-4151-9716-51fb10cd8478</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+	<PackageReference Include="DocumentFormat.OpenXml" Version="$(OpenXMLVersion)" />
+	<PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="$(WebJobsExtensionsCosmosDBVersion)" />
+	<PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DurableTask" Version="$(WebJobsExtensionsDurableTaskVersion)" />
+	<PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventGrid" Version="$(WebJobsExtensionsEventGridVersion)" />
+	<PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="$(WebJobsExtensionsStorageVersion)" />
+	<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="$(ExtensionsConfigurationUserSecretsVersion)" />
+	<PackageReference Include="Microsoft.NET.Sdk.Functions" Version="$(NETSdkFunctionsVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+    <None Update="ParseExcel\SampleData.xlsx">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

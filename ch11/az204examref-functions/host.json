@@ -1,0 +1,16 @@
+{
+    "version": "2.0",
+    "logging": {
+        "applicationInsights": {
+            "samplingSettings": {
+                "isEnabled": true,
+                "excludedTypes": "Request"
+            }
+        }
+    },
+    "extensions": {
+      "durableTask": {
+        "hubName": "AZ204ExamRefAPIMDT" //TODO: if you deploy more than one version/slot, change this to "%mytaskhub%" and create the environment variable
+      }
+    }
+}
