@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="simple-mvc-web">Simple MVC Web</h1>
+<h2 id="chapter-4-related">Chapter 4 related</h2>
+<p>If you completed chapter 4, utilize your existing files.  If not, you can use this set of files.  Note that the following steps should have been completed during chapter 4</p>
+<h3 id="create-a-basic-database">Create a basic database</h3>
+<p>You'll need to utilize a database if you want to do the authorization stuff later in the book.  For now, you could skip this, but if you deploy a Basic Azure SQL database, it will run about $5/month.</p>
+<ol>
+<li>
+<p>Deploy the Basic SQL Database</p>
+</li>
+<li>
+<p>Manually migrate the database or just uncomment the code to enable automatic migrations (in the Program.cs file).</p>
+</li>
+</ol>
+<h3 id="create-the-app-service-plan-and-app-service">Create the App Service Plan and App Service</h3>
+<p>Feel free to create the plan first, or just create the plan while deploying, your choice.</p>
+<p>If you want to utilize slots and scaling (good practice for the exam), you'll need to deploy an S1 or better instance.  If you just want to deploy the application so that you can work with it in the most basic form (no slots, no scaling), use the Free (F1) deployment.</p>
+<ol>
+<li>
+<p>Create your App Service (and Plan)</p>
+</li>
+<li>
+<p>Right-Click and Publish or set up CI/CD</p>
+<p>Either just publish it from your machine or set up CI/CD to your GitHub (or other GIT service).</p>
+</li>
+<li>
+<p>If using the database, ensure the migrations (manual by connecting from your machine and running them, or via code in Program.cs)</p>
+</li>
+<li>
+<p>Validate the site is working</p>
+</li>
+</ol>
+<h3 id="review-the-text">Review the text</h3>
+<p>Follow the text to do anything else you want to learn about with the site, including:</p>
+<ol>
+<li>Deployment Slots and Swapping, directing traffic to a slot</li>
+<li>Scaling the app</li>
+</ol>
+<h3 id="important">Important</h3>
+<p>This website and code is used in a couple of chapters (8 and 10).  Those chapters build on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app when you are done with the chapter.  Otherwise, leave the site in place until you have completed chapters 8 and 10</p>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Configure your application insights (Utilized in Chapter 10, but deployed with the App Service)</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Most of the code is present, a lot is commented out until you get to later chapters (security for KeyVault, working with Azure App Configuration, Redis Cache, etc)</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">make sure to check the connection string and update the database if using from this point on</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Review settings in Directory.Build.props for package versions (use Nuget package manager to update)</label></li>
+</ul>
+<h2 id="chapter-7">Chapter 7</h2>
+<p>If you skipped chapter 7, you don't need to turn on the identity for this chapter to work.  Therefore, you can leave the code commented out regarding chapter 7 in the Program.cs file (if it's not commented out, just leave it alone, if it's commented out, just leave it alone).</p>
+<h2 id="chapter-8">Chapter 8</h2>
+<p>If you skipped chapter 8, you don't need to turn on the sections regarding the use of the Azure App Configuration and Key Vault.  For this reason, the code is once again the same starter files that existed at the start of the book.</p>
+<p>Please note that the default does not:</p>
+<ul>
+<li>
+<p>Implement Identity (see the comments in Program.cs for chapter 7).  Leave this alone if you have skipped chapter 7 and/or you are not set up for working with Identity at this time.</p>
+</li>
+<li>
+<p>Automate migrations (you need a database configured, and if you want to use identity in your app you'll need to implement that)</p>
+</li>
+<li>
+<p>Implement any of the secure solutions code for Azure App Configuration and/or Azure Key Vault.</p>
+</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>Assuming you have been working through the chapters, you already have your code in a good place.  Assuming you want to just do this chapter, you can turn on the sections that are relevant to this project.  You will need to either mock the response of the database or implement a database to get the states data for caching.  If you don't want to implement a database, just create a list of say 10 or so states and return that as mocked data, and then implement code to invalidate the cache, add/edit/delete against your mock data.</p>
+<h2 id="chapter-9">Chapter 9</h2>
+<p>To complete this chapter, you will need to configure a CDN and then an Azure Cache for Redis.</p>
+<h3 id="part-1-cdn">Part 1: CDN</h3>
+<p>There is no code for this part, so just work through the concepts in the book.</p>
+<ol>
+<li>
+<p>If you want to go deeper, follow the code links from the book to learn about working with code.</p>
+</li>
+<li>
+<p>Complete the Learn modules.  At the time of this writing they were using deprecated code but will likely be updated by the time you are working through this book.</p>
+</li>
+</ol>
+<h3 id="part-2-cache-for-redis">Part 2: Cache For Redis</h3>
+<p>To get started, complete the deployment</p>
+<h3 id="deploy-a-redis-cache">Deploy a Redis Cache</h3>
+<ol>
+<li>
+<p>Deploy an Azure Cache for Redis (also mentioned in the simple console app)</p>
+<p>You can use the same one from the other app if you did that first.</p>
+</li>
+</ol>
+<h3 id="work-with-the-console-app">Work with the console app</h3>
+<p>Utilize the console app to see how to interact with the Azure Cache for Redis instance directly.</p>
+<h3 id="implement-the-code-to-leverage-caching-from-the-aspnet-core-web-application">Implement the code to leverage caching from the ASP.NET Core Web application</h3>
+<ol>
+<li>
+<p>Update the secrets to use the connection string</p>
+</li>
+<li>
+<p>Notice the use of sample code from various sources (documented in the code files like RedisConnection.cs).</p>
+</li>
+<li>
+<p>Follow the book for directions on working with the code and what is going on with the code</p>
+</li>
+<li>
+<p>Utilize the StatesCachedController to see the code in action</p>
+<p>Requires a database or mocked States data to cache</p>
+</li>
+</ol>
+<h2 id="directorybuildprops">Directory.Build.props</h2>
+<p>The project is set to read all the versions from the Directory.Build.props file.  Use that to leverage which version you want to run and/or update any NuGet references to new versions that are out by the time you review this code.</p>
+<p>The default version at time of publish is DN6.  You can leverage DN7 by changing the extension on the props to <code>dn6</code> then the <code>dn7</code> extension to <code>props</code> and the project will default to version 7 with the latest packages at the time of this publishing.  Later, you can change it to DN8 or DN9/10/11, etc and just update the other libraries as needed as well (check for updates in the Nuget Packages for Solution)</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Use this project to help you learn how to interact with the Azure App Configuration and Azure Key Vault</p>
+
+</body>
+</html>
