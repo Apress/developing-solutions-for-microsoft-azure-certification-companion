@@ -33,11 +33,11 @@ Follow the text to do anything else you want to learn about with the site, inclu
 
 ## Important
 
-This website and code is used in a couple of chapters (8 and 10).  Those chapters build on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app when you are done with the chapter.  Otherwise, leave the site in place until you have completed chapters 8 and 10
+This website and code is used in a couple of additional chapters (7, 8, 9, and 10).  Those chapters build on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app when you are done with the chapter.  Otherwise, leave the site in place until you have completed the additional work.
 
-- [ ] Configure your application insights (Utilized in Chapter 10, but deployed with the App Service)
+- [ ] Configure your application insights (Utilized in Chapter 10, but should be deployed with the App Service)
 - [ ] Most of the code is present, a lot is commented out until you get to later chapters (security for KeyVault, working with Azure App Configuration, Redis Cache, etc)
-- [ ] make sure to check the connection string and update the database if using from this point on
+- [ ] make sure to check the connection string and update the database if/when using from this point on
 - [ ] Review settings in Directory.Build.props for package versions (use Nuget package manager to update)
 
 ## Directory.Build.props
