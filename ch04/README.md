@@ -8,6 +8,8 @@ You'll need to utilize a database if you want to do the authorization stuff late
 
 1. Manually migrate the database or just uncomment the code to enable automatic migrations (in the Program.cs file).
 
+>**Important**:  Don't forget to set the server firewall on the database to allow for the other azure services and your client IP address (if you want to connect from your machine) so that you and the app service can interact with the database.
+
 ## Create the App Service Plan and App Service
 
 Feel free to create the plan first, or just create the plan while deploying, your choice.  
@@ -22,7 +24,13 @@ If you want to utilize slots and scaling (good practice for the exam), you'll ne
 
 1. If using the database, ensure the migrations (manual by connecting from your machine and running them, or via code in Program.cs)
 
+    >**Important**: Don't forget to add the connection string to the app service configuration connection strings
+    - Name `DefaultConnection`
+    - Value: Replace `your*` with important information: `Server=tcp:yourserver.database.windows.net,1433;Initial Catalog=yourdatabase;Persist Security Info=False;User ID=yourusername;Password=yourpassword;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;`
+
 1. Validate the site is working
+
+    Make sure that the site loads and migrations are applied before moving on.
 
 ## Review the text
 
@@ -33,11 +41,11 @@ Follow the text to do anything else you want to learn about with the site, inclu
 
 ## Important
 
-This website and code is used in a couple of chapters (8 and 10).  Those chapters build on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app when you are done with the chapter.  Otherwise, leave the site in place until you have completed chapters 8 and 10
+This website and code is used in a couple of additional chapters (7, 8, 9, and 10).  Those chapters build on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app when you are done with the chapter.  Otherwise, leave the site in place until you have completed the additional work.
 
-- [ ] Configure your application insights (Utilized in Chapter 10, but deployed with the App Service)
+- [ ] Configure your application insights (Utilized in Chapter 10, but should be deployed with the App Service)
 - [ ] Most of the code is present, a lot is commented out until you get to later chapters (security for KeyVault, working with Azure App Configuration, Redis Cache, etc)
-- [ ] make sure to check the connection string and update the database if using from this point on
+- [ ] make sure to check the connection string and update the database if/when using from this point on
 - [ ] Review settings in Directory.Build.props for package versions (use Nuget package manager to update)
 
 ## Directory.Build.props

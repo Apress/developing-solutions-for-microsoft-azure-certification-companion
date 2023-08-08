@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "az204examref_functions": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7141",
-      "launchBrowser": false
-    }
-  }
-}

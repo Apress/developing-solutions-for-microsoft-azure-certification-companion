@@ -365,38 +365,51 @@ code {
           : 'default'
     });
   </script>
-<h1 id="working-with-azure-blob-storage">Working with Azure Blob Storage</h1>
-<p>The instructions for this are fairly straightforward and are covered in the book.  What follows is the TL/DR version</p>
-<h2 id="create-a-storage-account">Create a storage account</h2>
-<p>You'll need a storage account.</p>
+<h1 id="read-me">Read me</h1>
+<p>To make this project work, you need to complete a few things</p>
+<h2 id="create-an-azure-service-bus-namespace--topic-must-be-a-standard-tier-or-better">Create an Azure Service Bus Namespace &amp; Topic (Must be a Standard Tier or better)</h2>
+<p>First, you must create the Namespace and Topic.</p>
+<ol>
+<li>Create the namespace</li>
+<li>Get the Root Shared Access Key from the namespace and put it into the Service Bus Administrator project secrets</li>
+<li>The ServiceBusAdministrator program will create the topic for you if you run that first with the Root Shared key on the namespace.</li>
+<li>The ServiceBusAdministrator program will also create the subscriptions for you.</li>
+</ol>
+<blockquote>
+<p><strong>Note</strong>: The Topic and Subscription keys are not secret so they are in the appsettings.json file.  The Root Shared Access Key is secret so it is in the secrets file.</p>
+</blockquote>
+<ol>
+<li>Run the program to completion and validate the topic and subscriptions are created in the portal.</li>
+</ol>
+<h2 id="create-the-sas-tokens">Create the SAS tokens</h2>
+<p>Next, Create SAS tokens</p>
 <ol>
 <li>
-<p>Create a normal storage account</p>
-<p>Keep it simple, no need to have replication or any other fancy features.</p>
-</li>
-</ol>
-<h2 id="get-the-access-key">Get the Access Key</h2>
-<p>After you create the account, get the Connection String</p>
-<ol>
-<li>Put the connection string into your user.secrets file</li>
-</ol>
-<h2 id="review-the-code">Review the code</h2>
-<p>The code is highlighted in the text.</p>
-<ol>
-<li>
-<p>Run the program</p>
-<p>Review the operations and how to work with Blob Storage</p>
+<p>Leverage the RootAccessConnectionString for the topic, or, alternatively, Create a Manage (All things) token on the topic</p>
+<p>Get the token of your choice and put it in the secrets for the ServiceBusAdministrator project.</p>
 </li>
 <li>
-<p>Consider writing the code yourself</p>
-<p>Now that you've seen the operations and the interactions, try to replicate the functionality yourself to get the practice of typing the commands so you can see them as preparation for the exam.</p>
+<p>Create a Listen (Consumer) token</p>
+<p>Get the token and put it in the secrets for the ServiceBusConsumer project</p>
+</li>
+<li>
+<p>Create a Send (Producer) token</p>
+<p>Get the token and put it in the secrets for the ServiceBusPublisher project</p>
 </li>
 </ol>
+<h2 id="ensure-your-secrets">Ensure your secrets</h2>
+<p>Ensure you have leveraged the example secrets file for each project to fill in the blanks for each project in the project secrets file.</p>
+<h2 id="run-the-administrator-program">Run the administrator program</h2>
+<p>While you can create all of the subscriptions in your topic manually (and that might be a great exercise before sitting for the exam), you can right-click and use the Debug -&gt; Start New Instance to run an instance of the ServiceBusAdministrator program so that the subscriptions will be created.  It may also be interesting and a good study point to then review the subscriptions for your topic in the portal.</p>
+<h2 id="run-the-program">Run the program</h2>
+<p>The default/startup program is the publisher.  Run it and validate you have the messages in your Queue (Subscriptions MUST be created first or this could have some bad side-effects)</p>
+<h2 id="debug---start-new-instance">Debug -&gt; Start New Instance</h2>
+<p>Right-click on the Consumer project and select Debug-&gt; Start New Instance to consume the messages from the queue.  In this program, you get to pick subscriptions to consume each time you run it.  Note that consuming one subscription has no effect on the others (i.e. consume &quot;ALL&quot; and then look in the portal to see that both the Family and Adult movies still have messages)</p>
 <h2 id="directorybuildprops">Directory.Build.props</h2>
 <p>The project is set to read all the versions from the Directory.Build.props file.  Use that to leverage which version you want to run and/or update any NuGet references to new versions that are out by the time you review this code.</p>
-<p>The default version at time of publish is DN6.  You can leverage DN7 by changing the extension on the props to <code>dn6</code> then the <code>dn7</code> extension to <code>props</code> and the project will default to version 7 with the latest packages at the time of this publishing.  Later, you can change it to DN8 or DN9/10/11, etc and just update the other libraries as needed as well (check for updates in the Nuget Packages for Solution)</p>
+<p>The default version at time of publish is DN6.  You can leverage DN7 by changing the extension on the props to dn6 then the dn7 extension to props and it will default to version 7.  Later, you can change it to DN8 or DN9/10/11, etc and just update the other libraries as needed as well (check for updates in the Nuget Packages for Solution)</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>Use this project to help you learn how to interact with the Azure Blob Storage</p>
+<p>Use this project to help you learn how to interact with the Service Bus Topics on a Pub/Sub with multiple subscriptions</p>
 
 </body>
 </html>

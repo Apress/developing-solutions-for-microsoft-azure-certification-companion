@@ -365,38 +365,40 @@ code {
           : 'default'
     });
   </script>
-<h1 id="working-with-azure-blob-storage">Working with Azure Blob Storage</h1>
-<p>The instructions for this are fairly straightforward and are covered in the book.  What follows is the TL/DR version</p>
-<h2 id="create-a-storage-account">Create a storage account</h2>
-<p>You'll need a storage account.</p>
+<h1 id="azure-static-content">Azure Static Content</h1>
+<p>This sample file is just for you to work with if you want to play around with Redis Cache outside of a website.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>To make this work, all you need to do is create a Redis Cache instance at Azure (use the Basic plan that is inexpensive and does not provide any replication or Enterprise-level tools)</p>
 <ol>
 <li>
-<p>Create a normal storage account</p>
-<p>Keep it simple, no need to have replication or any other fancy features.</p>
+<p>Deploy a Redis Cache instance</p>
+<p>Go get a coffee/tea/water, etc</p>
 </li>
 </ol>
-<h2 id="get-the-access-key">Get the Access Key</h2>
-<p>After you create the account, get the Connection String</p>
-<ol>
-<li>Put the connection string into your user.secrets file</li>
-</ol>
-<h2 id="review-the-code">Review the code</h2>
-<p>The code is highlighted in the text.</p>
+<h2 id="get-the-connection-string">Get the connection string</h2>
+<p>The Redis cache will take about 10-15 minutes to deploy and propagate (at the most, it may be quicker) so go get a coffee, then come back and you can easily complete the work.</p>
 <ol>
 <li>
-<p>Run the program</p>
-<p>Review the operations and how to work with Blob Storage</p>
+<p>Get the connection string into your user secrets file</p>
+<p>Use the provided sample to set the cache connection string</p>
+</li>
+</ol>
+<h2 id="run-the-program">Run the program</h2>
+<p>Run the program to interact with Cache</p>
+<ol>
+<li>
+<p>The default program doesn't do much, but it gets you started</p>
 </li>
 <li>
-<p>Consider writing the code yourself</p>
-<p>Now that you've seen the operations and the interactions, try to replicate the functionality yourself to get the practice of typing the commands so you can see them as preparation for the exam.</p>
+<p>Play around with other Azure Redis Commands</p>
+<p>https://learn.microsoft.com/azure/azure-cache-for-redis/cache-dotnet-how-to-use-azure-redis-cache</p>
 </li>
 </ol>
 <h2 id="directorybuildprops">Directory.Build.props</h2>
 <p>The project is set to read all the versions from the Directory.Build.props file.  Use that to leverage which version you want to run and/or update any NuGet references to new versions that are out by the time you review this code.</p>
 <p>The default version at time of publish is DN6.  You can leverage DN7 by changing the extension on the props to <code>dn6</code> then the <code>dn7</code> extension to <code>props</code> and the project will default to version 7 with the latest packages at the time of this publishing.  Later, you can change it to DN8 or DN9/10/11, etc and just update the other libraries as needed as well (check for updates in the Nuget Packages for Solution)</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>Use this project to help you learn how to interact with the Azure Blob Storage</p>
+<p>Use this project to help you learn how to interact with the Azure Cache for Redis using the StackExchange.Redis NuGet Package from a console application.</p>
 
 </body>
 </html>

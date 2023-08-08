@@ -369,8 +369,12 @@ code {
 <p>This README is to help with the implementation of a couple of functions in this application.</p>
 <p>You will need to make sure to do a couple of things in order for this project to work correctly.</p>
 <h2 id="notes">Notes</h2>
-<p>If you already worked through Chapter 6, you don't need to do anything else with Azure Functions (unless you didn't implement the <code>GetMovies</code> code).  If the <code>GetMovies</code> and <code>Function1</code> code is uncommented and working, you are ready to complete this project.</p>
-<p>In the case where you skipped chapter 6, or you just want a fresh start, deploy a new consumption tier Function App and make sure that you have deployed the sample code provided.  For convenience, the sample code in this chapter already has <code>Function1</code> and <code>GetMovies</code> ready to go, and the rest of the functions are commented out.</p>
+<p>If you already worked through Chapter 6, you don't need to do anything else with Azure Functions (unless you didn't implement the <code>GetMovies</code> code).  If the <code>GetTopMovies</code> and <code>Function1</code> code is uncommented and working, you are ready to complete this project, and you don't need to do any more work with the function app (it doesn't matter if you chose isolated or non-isolated).</p>
+<p>In the case where you skipped chapter 6, or you just want a fresh start, you could deploy a new consumption tier Function App and make sure that you have deployed two HTTP trigger functions (the default for <code>Function1</code> and another for the <code>GetTopMovies</code>).</p>
+<p>For convenience, the sample code in this chapter already has <code>Function1</code> and <code>GetTopMovies</code> ready to go, and the rest of the functions are commented out.</p>
+<blockquote>
+<p><strong>Note:</strong> Once again, this is the exact same code as per chapter 6, and you don't need to deploy a new app if you already completed that work and have your functions in place.</p>
+</blockquote>
 <h2 id="deploy-an-apim">Deploy an APIM</h2>
 <p>If you want to do anything other than consumption tier on the APIM (i.e. work with the developer portal [discussed in the book] or see any custom networking features [not used in the book]), you must deploy a Developer or better tier APIM.</p>
 <blockquote>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="simple-mvc-web">Simple MVC Web</h1>
+<h2 id="chapter-4-related">Chapter 4 related</h2>
+<p>If you completed chapter 4, utilize your existing files (chapter 7 is optional).  If you did not do chapter 4, you can use this set of files.  Note that the following steps should have been completed during chapter 4.</p>
+<p>Note that the starter files for this project do not include any of the settings for chapter 7 in place.</p>
+<h3 id="create-a-basic-database">Create a basic database</h3>
+<p>You'll need to utilize a database if you want to do the authorization stuff later in the book.  For now, you could skip this, but if you deploy a Basic Azure SQL database, it will run about $5/month.</p>
+<ol>
+<li>
+<p>Deploy the Basic SQL Database</p>
+<ul>
+<li>Ensure the server firewall allows Azure services</li>
+<li>Optionally allow your client IP for further connection/debugging.</li>
+</ul>
+</li>
+<li>
+<p>Manually migrate the database or just uncomment the code to enable automatic migrations on app startup (in the Program.cs file).</p>
+</li>
+<li>
+<p>Ensure that connection strings are set up correctly in the usersettings.json file and that the app service has the connection string in place.</p>
+</li>
+</ol>
+<h3 id="create-the-app-service-plan-and-app-service">Create the App Service Plan and App Service</h3>
+<p>Feel free to create the plan first, or just create the plan while deploying, your choice.</p>
+<p>If you want to utilize slots and scaling (good practice for the exam), you'll need to deploy an S1 or better instance.  If you just want to deploy the application so that you can work with it in the most basic form (no slots, no scaling), use the Free (F1) deployment.</p>
+<ol>
+<li>
+<p>Create your App Service (and Plan)</p>
+</li>
+<li>
+<p>Right-Click and Publish or set up CI/CD</p>
+<p>Either just publish it from your machine or set up CI/CD to your GitHub (or other GIT service).</p>
+</li>
+<li>
+<p>If using the database, ensure the migrations (manual by connecting from your machine and running them, or via code in Program.cs)</p>
+<ul>
+<li>Also ensure the connection string is set up in the app service</li>
+</ul>
+</li>
+<li>
+<p>Validate the site is working</p>
+<ul>
+<li>Register a user (or log in with a registered user)</li>
+</ul>
+</li>
+</ol>
+<h3 id="review-the-text">Review the text</h3>
+<p>Follow the text to do anything else you want to learn about with the site, including:</p>
+<ol>
+<li>Deployment Slots and Swapping, directing traffic to a slot</li>
+<li>Scaling the app</li>
+</ol>
+<h3 id="important">Important</h3>
+<p>This website and code is used in a couple of chapters (4, 5, 7, 8, 9, and 10).  Each chapter builds on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app and database when you are done with each chapter and restore later.  Otherwise, leave the site and database in place until you have completed work through chapter 10.</p>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Configure your application insights (Utilized in Chapter 10, but deployed with the App Service)</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Most of the code is present, a lot is commented out until you get to later chapters (security for KeyVault, working with Azure App Configuration, Redis Cache, etc)</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">make sure to check the connection string and update the database if using from this point on</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Review settings in Directory.Build.props for package versions (use Nuget package manager to update)</label></li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">Modify to use the Directory.Build.props for .NET 7 or future versions</label></li>
+</ul>
+<h2 id="chapter-7">Chapter 7</h2>
+<p>If you skipped chapter 7 (it is optional), or didn't do the web project work in chapter 7, you don't need to turn on the identity for this chapter to work.  Therefore, you can leave the code as you have it for chapter 7 in the Program.cs file (if it's not commented out, then leave it in place, if it's commented out, just leave it alone, there is no need to implement it for this chapter to work).</p>
+<h2 id="chapter-8">Chapter 8</h2>
+<p>Assuming you are done with chapter 4 (and optionally 7) work and have your own files, you won't need these solution files.  If you are just trying to start here, note that the default files for chapter 4 are used to start this chapter too.  Review the <code>Program.cs</code> file to see if you need to make any changes to the code to get it to work for you.</p>
+<p>Please note that the default code does not:</p>
+<ul>
+<li>
+<p>Implement Identity (see the comments in Program.cs for chapter 7).  Leave this alone if you have skipped chapter 7 and/or you are not set up for working with Identity at this time.  Again, if you did set it up prior to this point, then just leave it set up.</p>
+</li>
+<li>
+<p>Automate migrations (you need a database configured, and if you want to use identity in your app you'll need to implement that)</p>
+</li>
+<li>
+<p>require any caching or content delivery (you will implement caching in chapter 9)</p>
+</li>
+</ul>
+<h3 id="step-1-learn-about-managed-identities">Step 1, Learn about Managed Identities</h3>
+<p>In order to complete the work for this chapter, you need to work with Managed Identities.  Make sure that you review the first part of the chapter to learn about identities.  If you have questions about some of the directions that follow, make sure you've reviewed the learning because the answer is likely in the book already.</p>
+<h3 id="step-2-key-vault">Step 2, Key Vault</h3>
+<blockquote>
+<p><strong>Note:</strong> this is a high-level overview and does not go in exactly the same order as the book.  I recommend you walk through the pages of the book with this code and use this guide as a summary of the things you've accomplished.</p>
+</blockquote>
+<p>Once you have learned about identities, it's time to create a Key Vault.  You will then connect your deployed App Service to the Key Vault to retrieve the secret information</p>
+<ol>
+<li>
+<p>Make sure you have a valid app service deployment</p>
+<p>You should already have (or you need to do it now) an active app service in your subscription with the provided code.  The default page should be showing both a local value that is &quot;shared&quot; and a &quot;secret&quot; value.  You will be moving the secret value to Key vault soon</p>
+</li>
+<li>
+<p>Create the Azure Key Vault</p>
+</li>
+<li>
+<p>Add a value for the secret into KeyVault</p>
+<p>Retrive the URI</p>
+<p>Leverage the URI in the app configuraation settings to create a reference from the App Service to the Key Vault Secret</p>
+<blockquote>
+<p><strong>Note</strong>: You will see an error at this point, and the page will just show the secret URI instead of the secret value.  This is expected.</p>
+</blockquote>
+</li>
+<li>
+<p>Create the managed identity for the app service</p>
+</li>
+<li>
+<p>Add an access policy in Key Vault for the Managed Identity for the App Service</p>
+<p>After a few minutes with this correctly implemented, restart your web application</p>
+<p>You will now see the value is retrieved and viewing on the page will show the value from the Key Vault Secret</p>
+</li>
+</ol>
+<h3 id="step-3-azure-app-configuration">Step 3: Azure App Configuration</h3>
+<p>In this step, you'll move the shared item to the App Configuration, and then you will create a shared secret leveraged from Key Vault through the Azure App Configuration.  In the process, you'll see how to manage the code to connect to both the Azure App Configuration and the Azure Key Vault from your App Service.</p>
+<blockquote>
+<p><strong>Note:</strong> this is a high-level overview and does not go in exactly the same order as the book.  I recommend you walk through the pages of the book with this code and use this guide as a summary of the things you've accomplished.</p>
+</blockquote>
+<ol>
+<li>
+<p>Create the Azure App Configuration</p>
+</li>
+<li>
+<p>Add the shared value as a shared key/value pair</p>
+</li>
+<li>
+<p>Create a managed identity for the App Configuration</p>
+</li>
+<li>
+<p>Add the App Configuration managed identity to the access policy for Key Vault</p>
+</li>
+<li>
+<p>Add the secret value to the App Configuration as a KeyVault Reference</p>
+</li>
+<li>
+<p>Add a reference to the app configuration from the app service; remove or rename the original keys.</p>
+</li>
+<li>
+<p>Add the managed identity of the app service as an App Config Data Reader role on the App Configuration.</p>
+</li>
+<li>
+<p>Utilize the code to connect to the App Service and Key Vault from the App Service.</p>
+</li>
+</ol>
+<h2 id="directorybuildprops">Directory.Build.props</h2>
+<p>The project is set to read all the versions from the Directory.Build.props file.  Use that to leverage which version you want to run and/or update any NuGet references to new versions that are out by the time you review this code.</p>
+<p>The default version at time of publish is DN6.  You can leverage DN7 by changing the extension on the props to <code>dn6</code> then the <code>dn7</code> extension to <code>props</code> and the project will default to version 7 with the latest packages at the time of this publishing.  Later, you can change it to DN8 or DN9/10/11, etc and just update the other libraries as needed as well (check for updates in the Nuget Packages for Solution)</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Use this project to help you learn how to interact with the Azure App Configuration and Azure Key Vault</p>
+
+</body>
+</html>

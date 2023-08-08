@@ -365,36 +365,85 @@ code {
           : 'default'
     });
   </script>
-<h1 id="working-with-azure-blob-storage">Working with Azure Blob Storage</h1>
-<p>The instructions for this are fairly straightforward and are covered in the book.  What follows is the TL/DR version</p>
-<h2 id="create-a-storage-account">Create a storage account</h2>
-<p>You'll need a storage account.</p>
+<h1 id="containerized-web-applications--azure-container-instances-and-azure-container-registry">Containerized Web Applications / Azure Container Instances and Azure Container Registry</h1>
+<p>This document outlines how to work with the code.  The main choice you want to make is do you want to do the .NET 6 version, the .NET 7 version, or both (easily done with Docker)!.</p>
+<p>Which brings up a good point -&gt; You can't do this without Docker.  So, you'll likely want to get WSL2 on your Windows Machine, and ensure you get a Linux distribution (such as Ubuntu).  Once you have that, install Docker Desktop or a similar tool like Rancher.io to work with containers easily from WSL on a Windows w/Linux distribution.  Make sure you use Linux containers unless you specifically need Windows containers.</p>
+<blockquote>
+<p><strong>NOTE:</strong> It is assumed if you are going to run past this point you have Docker running and are able to create images.  If Docker is not working, then you can't do the rest of this activity from your local machine.</p>
+</blockquote>
+<h2 id="create-an-azure-container-registry-acr">Create an Azure Container Registry (ACR)</h2>
+<ol>
+<li>Create the registry</li>
+<li>Follow instructions in the book to ensure you can log in to the ACR</li>
+</ol>
+<h2 id="open-the-project-of-your-choice-you-can-do-both-if-you-want">Open the project of your choice (you can do both if you want)</h2>
+<p>Either utilize DN6 or DN7, or both in separate images and container instances, your choice.</p>
+<ol>
+<li>Build the image using the provided Docker file and the build command</li>
+</ol>
+<pre class="hljs"><code><div>docker build -t simplednxweb .
+</div></code></pre>
+<ol>
+<li>Run the image locally and make sure it works</li>
+</ol>
+<pre class="hljs"><code><div>docker run -dp 8080:80 simplednxweb
+</div></code></pre>
+<ol>
+<li>Browse to the running container</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-attribute">http://localhost:8080/
+</span></div></code></pre>
+<p><a href="http://localhost:8080">http://localhost:8080/</a></p>
+<h2 id="push-the-image-to-the-acr">Push the image to the ACR</h2>
+<ol>
+<li>Log in to Azure</li>
+</ol>
+<pre class="hljs"><code><div>az login
+</div></code></pre>
+<ol>
+<li>Docker log in to your Azure ACR (remember to enable admin, note that the password won't ever show in the terminal)</li>
+</ol>
+<pre class="hljs"><code><div>docker login yourregistry.azurecr.io
+</div></code></pre>
+<ol>
+<li>Log into your Azure ACR</li>
+</ol>
+<pre class="hljs"><code><div>az acr login --name yourregistry
+</div></code></pre>
+<ol>
+<li>Tag the image for your ACR</li>
+</ol>
+<pre class="hljs"><code><div>docker tag simplednxweb yourregistry.azurecr.io/simplednxweb
+docker tag simplednxweb yourregistry.azurecr.io/simplednxweb:v1
+</div></code></pre>
+<ol>
+<li>Push the image</li>
+</ol>
+<pre class="hljs"><code><div>docker push yourregistry.azurecr.io/simplednxweb
+docker push yourregistry.azurecr.io/simplednxweb:v1
+</div></code></pre>
+<h2 id="publish-to-azure-container-instances">Publish to Azure Container Instances</h2>
+<p>To complete the exercise, leverage the image from your ACR and publish to an Azure ACI instance</p>
 <ol>
 <li>
-<p>Create a normal storage account</p>
-<p>Keep it simple, no need to have replication or any other fancy features.</p>
-</li>
-</ol>
-<h2 id="get-the-access-key">Get the Access Key</h2>
-<p>After you create the account, get the Connection String</p>
-<ol>
-<li>Put the connection string into your user.secrets file</li>
-</ol>
-<h2 id="review-the-code">Review the code</h2>
-<p>The code is highlighted in the text.</p>
-<ol>
-<li>
-<p>Run the program</p>
-<p>Review the operations and how to work with Blob Storage</p>
+<p>Deploy using the portal, select the container registry and image</p>
+<p>Remember: If you want to use environment variables, you must set them during deployment as the container will be immutable.</p>
+<blockquote>
+<p><strong>Note:</strong> Don't forget to set your Fully-Qualified-Domain-Name on deployment if you want to browse to the container instance without using the Public IP.</p>
+</blockquote>
 </li>
 <li>
-<p>Consider writing the code yourself</p>
-<p>Now that you've seen the operations and the interactions, try to replicate the functionality yourself to get the practice of typing the commands so you can see them as preparation for the exam.</p>
+<p>Deploy using the Azure CLI</p>
+<p>The commands to do this are in the book, so make sure to reference them there.  The thing that is most important is setting the environment variables.</p>
+<pre class="hljs"><code><div>az container create --resource-group <span class="hljs-variable">$rg</span> --name <span class="hljs-variable">$name</span> --image <span class="hljs-variable">$img</span> --dns-name-label <span class="hljs-variable">$dns</span> --ports 80 --environment-variables <span class="hljs-string">'SimpleWebShared__MySimpleValue'</span>=<span class="hljs-string">'CLI: Shared Value'</span> <span class="hljs-string">'SimpleWebShared__MySecretValue'</span>=<span class="hljs-string">'CLI:Secret Value'</span>  
+</div></code></pre>
 </li>
 </ol>
-<h2 id="directorybuildprops">Directory.Build.props</h2>
-<p>The project is set to read all the versions from the Directory.Build.props file.  Use that to leverage which version you want to run and/or update any NuGet references to new versions that are out by the time you review this code.</p>
-<p>The default version at time of publish is DN6.  You can leverage DN7 by changing the extension on the props to <code>dn6</code> then the <code>dn7</code> extension to <code>props</code> and the project will default to version 7 with the latest packages at the time of this publishing.  Later, you can change it to DN8 or DN9/10/11, etc and just update the other libraries as needed as well (check for updates in the Nuget Packages for Solution)</p>
+<h2 id="deploy-to-an-azure-app-service">Deploy to an Azure App Service</h2>
+<p>Choose the Linux free plan, then deploy your container</p>
+<ol>
+<li>Utilize the ACR image and publish during deployment of the Web Application.</li>
+</ol>
 <h2 id="conclusion">Conclusion</h2>
 <p>Use this project to help you learn how to interact with the Azure Blob Storage</p>
 

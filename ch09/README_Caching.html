@@ -365,38 +365,113 @@ code {
           : 'default'
     });
   </script>
-<h1 id="working-with-azure-blob-storage">Working with Azure Blob Storage</h1>
-<p>The instructions for this are fairly straightforward and are covered in the book.  What follows is the TL/DR version</p>
-<h2 id="create-a-storage-account">Create a storage account</h2>
-<p>You'll need a storage account.</p>
+<h1 id="simple-mvc-web">Simple MVC Web</h1>
+<h2 id="chapter-4-related">Chapter 4 related</h2>
+<p>If you completed chapter 4, utilize your existing files.  If not, you can use this set of files.  Note that the following steps should have been completed during chapter 4</p>
+<h3 id="create-a-basic-database">Create a basic database</h3>
+<p>You'll need to utilize a database if you want to do the authorization stuff later in the book.  For now, you could skip this, but if you deploy a Basic Azure SQL database, it will run about $5/month.</p>
 <ol>
 <li>
-<p>Create a normal storage account</p>
-<p>Keep it simple, no need to have replication or any other fancy features.</p>
-</li>
-</ol>
-<h2 id="get-the-access-key">Get the Access Key</h2>
-<p>After you create the account, get the Connection String</p>
-<ol>
-<li>Put the connection string into your user.secrets file</li>
-</ol>
-<h2 id="review-the-code">Review the code</h2>
-<p>The code is highlighted in the text.</p>
-<ol>
-<li>
-<p>Run the program</p>
-<p>Review the operations and how to work with Blob Storage</p>
+<p>Deploy the Basic SQL Database</p>
 </li>
 <li>
-<p>Consider writing the code yourself</p>
-<p>Now that you've seen the operations and the interactions, try to replicate the functionality yourself to get the practice of typing the commands so you can see them as preparation for the exam.</p>
+<p>Manually migrate the database or just uncomment the code to enable automatic migrations (in the Program.cs file).</p>
+</li>
+</ol>
+<h3 id="create-the-app-service-plan-and-app-service">Create the App Service Plan and App Service</h3>
+<p>Feel free to create the plan first, or just create the plan while deploying, your choice.</p>
+<p>If you want to utilize slots and scaling (good practice for the exam), you'll need to deploy an S1 or better instance.  If you just want to deploy the application so that you can work with it in the most basic form (no slots, no scaling), use the Free (F1) deployment.</p>
+<ol>
+<li>
+<p>Create your App Service (and Plan)</p>
+</li>
+<li>
+<p>Right-Click and Publish or set up CI/CD</p>
+<p>Either just publish it from your machine or set up CI/CD to your GitHub (or other GIT service).</p>
+</li>
+<li>
+<p>If using the database, ensure the migrations (manual by connecting from your machine and running them, or via code in Program.cs)</p>
+</li>
+<li>
+<p>Validate the site is working</p>
+</li>
+</ol>
+<h3 id="review-the-text">Review the text</h3>
+<p>Follow the text to do anything else you want to learn about with the site, including:</p>
+<ol>
+<li>Deployment Slots and Swapping, directing traffic to a slot</li>
+<li>Scaling the app</li>
+</ol>
+<h3 id="important">Important</h3>
+<p>This website and code is used in a couple of chapters (8 and 10).  Those chapters build on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app when you are done with the chapter.  Otherwise, leave the site in place until you have completed chapters 8 and 10</p>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Configure your application insights (Utilized in Chapter 10, but deployed with the App Service)</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Most of the code is present, a lot is commented out until you get to later chapters (security for KeyVault, working with Azure App Configuration, Redis Cache, etc)</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">make sure to check the connection string and update the database if using from this point on</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Review settings in Directory.Build.props for package versions (use Nuget package manager to update)</label></li>
+</ul>
+<h2 id="chapter-7">Chapter 7</h2>
+<p>If you skipped chapter 7, you don't need to turn on the identity for this chapter to work.  Therefore, you can leave the code commented out regarding chapter 7 in the Program.cs file (if it's not commented out, just leave it alone, if it's commented out, just leave it alone).</p>
+<h2 id="chapter-8">Chapter 8</h2>
+<p>If you skipped chapter 8, you don't need to turn on the sections regarding the use of the Azure App Configuration and Key Vault.  For this reason, the code is once again the same starter files that existed at the start of the book.</p>
+<p>Please note that the default does not:</p>
+<ul>
+<li>
+<p>Implement Identity (see the comments in Program.cs for chapter 7).  Leave this alone if you have skipped chapter 7 and/or you are not set up for working with Identity at this time.</p>
+</li>
+<li>
+<p>Automate migrations (you need a database configured, and if you want to use identity in your app you'll need to implement that)</p>
+</li>
+<li>
+<p>Implement any of the secure solutions code for Azure App Configuration and/or Azure Key Vault.</p>
+</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>Assuming you have been working through the chapters, you already have your code in a good place.  Assuming you want to just do this chapter, you can turn on the sections that are relevant to this project.  You will need to either mock the response of the database or implement a database to get the states data for caching.  If you don't want to implement a database, just create a list of say 10 or so states and return that as mocked data, and then implement code to invalidate the cache, add/edit/delete against your mock data.</p>
+<h2 id="chapter-9">Chapter 9</h2>
+<p>To complete this chapter, you will need to configure a CDN and then an Azure Cache for Redis.</p>
+<h3 id="part-1-cdn">Part 1: CDN</h3>
+<p>There is no code for this part, so just work through the concepts in the book.</p>
+<ol>
+<li>
+<p>If you want to go deeper, follow the code links from the book to learn about working with code.</p>
+</li>
+<li>
+<p>Complete the Learn modules.  At the time of this writing they were using deprecated code but will likely be updated by the time you are working through this book.</p>
+</li>
+</ol>
+<h3 id="part-2-cache-for-redis">Part 2: Cache For Redis</h3>
+<p>To get started, complete the deployment</p>
+<h3 id="deploy-a-redis-cache">Deploy a Redis Cache</h3>
+<ol>
+<li>
+<p>Deploy an Azure Cache for Redis (also mentioned in the simple console app)</p>
+<p>You can use the same one from the other app if you did that first.</p>
+</li>
+</ol>
+<h3 id="work-with-the-console-app">Work with the console app</h3>
+<p>Utilize the console app to see how to interact with the Azure Cache for Redis instance directly.</p>
+<h3 id="implement-the-code-to-leverage-caching-from-the-aspnet-core-web-application">Implement the code to leverage caching from the ASP.NET Core Web application</h3>
+<ol>
+<li>
+<p>Update the secrets to use the connection string</p>
+</li>
+<li>
+<p>Notice the use of sample code from various sources (documented in the code files like RedisConnection.cs).</p>
+</li>
+<li>
+<p>Follow the book for directions on working with the code and what is going on with the code</p>
+</li>
+<li>
+<p>Utilize the StatesCachedController to see the code in action</p>
+<p>Requires a database or mocked States data to cache</p>
 </li>
 </ol>
 <h2 id="directorybuildprops">Directory.Build.props</h2>
 <p>The project is set to read all the versions from the Directory.Build.props file.  Use that to leverage which version you want to run and/or update any NuGet references to new versions that are out by the time you review this code.</p>
 <p>The default version at time of publish is DN6.  You can leverage DN7 by changing the extension on the props to <code>dn6</code> then the <code>dn7</code> extension to <code>props</code> and the project will default to version 7 with the latest packages at the time of this publishing.  Later, you can change it to DN8 or DN9/10/11, etc and just update the other libraries as needed as well (check for updates in the Nuget Packages for Solution)</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>Use this project to help you learn how to interact with the Azure Blob Storage</p>
+<p>Use this project to help you learn how to interact with the Azure App Configuration and Azure Key Vault</p>
 
 </body>
 </html>
