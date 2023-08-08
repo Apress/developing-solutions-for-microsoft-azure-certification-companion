@@ -376,6 +376,9 @@ code {
 <p>Manually migrate the database or just uncomment the code to enable automatic migrations (in the Program.cs file).</p>
 </li>
 </ol>
+<blockquote>
+<p><strong>Important</strong>:  Don't forget to set the server firewall on the database to allow for the other azure services and your client IP address (if you want to connect from your machine) so that you and the app service can interact with the database.</p>
+</blockquote>
 <h2 id="create-the-app-service-plan-and-app-service">Create the App Service Plan and App Service</h2>
 <p>Feel free to create the plan first, or just create the plan while deploying, your choice.</p>
 <p>If you want to utilize slots and scaling (good practice for the exam), you'll need to deploy an S1 or better instance.  If you just want to deploy the application so that you can work with it in the most basic form (no slots, no scaling), use the Free (F1) deployment.</p>
@@ -389,9 +392,17 @@ code {
 </li>
 <li>
 <p>If using the database, ensure the migrations (manual by connecting from your machine and running them, or via code in Program.cs)</p>
+<blockquote>
+<p><strong>Important</strong>: Don't forget to add the connection string to the app service configuration connection strings</p>
+</blockquote>
+<ul>
+<li>Name <code>DefaultConnection</code></li>
+<li>Value: Replace <code>your*</code> with important information: <code>Server=tcp:yourserver.database.windows.net,1433;Initial Catalog=yourdatabase;Persist Security Info=False;User ID=yourusername;Password=yourpassword;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;</code></li>
+</ul>
 </li>
 <li>
 <p>Validate the site is working</p>
+<p>Make sure that the site loads and migrations are applied before moving on.</p>
 </li>
 </ol>
 <h2 id="review-the-text">Review the text</h2>
