@@ -2,7 +2,9 @@
 
 ## Chapter 4 related
 
-If you completed chapter 4, utilize your existing files.  If not, you can use this set of files.  Note that the following steps should have been completed during chapter 4
+If you completed chapter 4, utilize your existing files (chapter 7 is optional).  If you did not do chapter 4, you can use this set of files.  Note that the following steps should have been completed during chapter 4.
+
+Note that the starter files for this project do not include any of the settings for chapter 7 in place.
 
 ### Create a basic database
 
@@ -10,7 +12,12 @@ You'll need to utilize a database if you want to do the authorization stuff late
 
 1. Deploy the Basic SQL Database
 
-1. Manually migrate the database or just uncomment the code to enable automatic migrations (in the Program.cs file).
+    - Ensure the server firewall allows Azure services
+    - Optionally allow your client IP for further connection/debugging.
+
+1. Manually migrate the database or just uncomment the code to enable automatic migrations on app startup (in the Program.cs file).
+
+1. Ensure that connection strings are set up correctly in the usersettings.json file and that the app service has the connection string in place.
 
 ### Create the App Service Plan and App Service
 
@@ -26,7 +33,11 @@ If you want to utilize slots and scaling (good practice for the exam), you'll ne
 
 1. If using the database, ensure the migrations (manual by connecting from your machine and running them, or via code in Program.cs)
 
+    - Also ensure the connection string is set up in the app service
+
 1. Validate the site is working
+
+    - Register a user (or log in with a registered user)
 
 ### Review the text
 
@@ -37,33 +48,37 @@ Follow the text to do anything else you want to learn about with the site, inclu
 
 ### Important
 
-This website and code is used in a couple of chapters (8 and 10).  Those chapters build on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app when you are done with the chapter.  Otherwise, leave the site in place until you have completed chapters 8 and 10
+This website and code is used in a couple of chapters (4, 5, 7, 8, 9, and 10).  Each chapter builds on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app and database when you are done with each chapter and restore later.  Otherwise, leave the site and database in place until you have completed work through chapter 10.
 
 - [ ] Configure your application insights (Utilized in Chapter 10, but deployed with the App Service)
 - [ ] Most of the code is present, a lot is commented out until you get to later chapters (security for KeyVault, working with Azure App Configuration, Redis Cache, etc)
 - [ ] make sure to check the connection string and update the database if using from this point on
 - [ ] Review settings in Directory.Build.props for package versions (use Nuget package manager to update)
+- [ ] Modify to use the Directory.Build.props for .NET 7 or future versions
 
 ## Chapter 7
 
-If you skipped chapter 7, you don't need to turn on the identity for this chapter to work.  Therefore, you can leave the code commented out regarding chapter 7 in the Program.cs file (if it's not commented out, just leave it alone, if it's commented out, just leave it alone).
+If you skipped chapter 7 (it is optional), or didn't do the web project work in chapter 7, you don't need to turn on the identity for this chapter to work.  Therefore, you can leave the code as you have it for chapter 7 in the Program.cs file (if it's not commented out, then leave it in place, if it's commented out, just leave it alone, there is no need to implement it for this chapter to work).  
 
 ## Chapter 8
 
-Assuming you are done with chapter 4 work and have your own files, you won't need these solution files.  If you are just trying to start here, note that the default files for chapter 4 are used to start this chapter too, because at this point I'm assuming you did not do chapter 4 if you are using my files.
+Assuming you are done with chapter 4 (and optionally 7) work and have your own files, you won't need these solution files.  If you are just trying to start here, note that the default files for chapter 4 are used to start this chapter too.  Review the `Program.cs` file to see if you need to make any changes to the code to get it to work for you.
 
-Please note that the default does not:
+Please note that the default code does not:
 
-- Implement Identity (see the comments in Program.cs for chapter 7).  Leave this alone if you have skipped chapter 7 and/or you are not set up for working with Identity at this time.
+- Implement Identity (see the comments in Program.cs for chapter 7).  Leave this alone if you have skipped chapter 7 and/or you are not set up for working with Identity at this time.  Again, if you did set it up prior to this point, then just leave it set up.
 
 - Automate migrations (you need a database configured, and if you want to use identity in your app you'll need to implement that)
-- require any caching or content delivery (you will implement caching in the next chapter)
+
+- require any caching or content delivery (you will implement caching in chapter 9)
 
 ### Step 1, Learn about Managed Identities
 
 In order to complete the work for this chapter, you need to work with Managed Identities.  Make sure that you review the first part of the chapter to learn about identities.  If you have questions about some of the directions that follow, make sure you've reviewed the learning because the answer is likely in the book already.
 
 ### Step 2, Key Vault
+
+>**Note:** this is a high-level overview and does not go in exactly the same order as the book.  I recommend you walk through the pages of the book with this code and use this guide as a summary of the things you've accomplished.
 
 Once you have learned about identities, it's time to create a Key Vault.  You will then connect your deployed App Service to the Key Vault to retrieve the secret information
 
@@ -76,7 +91,8 @@ Once you have learned about identities, it's time to create a Key Vault.  You wi
 1. Add a value for the secret into KeyVault
 
     Retrive the URI 
-    Leverage the URI to create a reference from the App Service to the Key Vault Secret
+
+    Leverage the URI in the app configuraation settings to create a reference from the App Service to the Key Vault Secret
 
     >**Note**: You will see an error at this point, and the page will just show the secret URI instead of the secret value.  This is expected.
 
