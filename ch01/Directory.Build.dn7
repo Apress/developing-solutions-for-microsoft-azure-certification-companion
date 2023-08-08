@@ -1,0 +1,10 @@
+<Project>
+    <PropertyGroup>
+        <TargetFrameworkVersion>net7.0</TargetFrameworkVersion>
+        <AzureStorageBlobsVersion>12.*</AzureStorageBlobsVersion>
+        <MicrosoftExtensionsConfigurationVersion>7.*</MicrosoftExtensionsConfigurationVersion>
+        <MicrosoftExtensionsConfigurationFileExtensionsVersion>7.*</MicrosoftExtensionsConfigurationFileExtensionsVersion>
+        <MicrosoftExtensionsConfigurationJsonVersion>7.*</MicrosoftExtensionsConfigurationJsonVersion>
+        <MicrosoftExtensionsConfigurationUserSecretsVersion>7.*</MicrosoftExtensionsConfigurationUserSecretsVersion>
+    </PropertyGroup>
+</Project>

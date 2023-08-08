@@ -1,0 +1,10 @@
+<Project>
+    <PropertyGroup>
+        <TargetFrameworkVersion>net6.0</TargetFrameworkVersion>
+        <AzureStorageBlobsVersion>12.*</AzureStorageBlobsVersion>
+        <MicrosoftExtensionsConfigurationVersion>6.*</MicrosoftExtensionsConfigurationVersion>
+        <MicrosoftExtensionsConfigurationFileExtensionsVersion>6.*</MicrosoftExtensionsConfigurationFileExtensionsVersion>
+        <MicrosoftExtensionsConfigurationJsonVersion>6.*</MicrosoftExtensionsConfigurationJsonVersion>
+        <MicrosoftExtensionsConfigurationUserSecretsVersion>6.*</MicrosoftExtensionsConfigurationUserSecretsVersion>
+    </PropertyGroup>
+</Project>
