@@ -6,7 +6,7 @@ You will need to make sure to do a couple of things in order for this project to
 
 ## Notes
 
-If you already worked through Chapter 6, you don't need to do anything else with Azure Functions (unless you didn't implement the `GetMovies` code).  If the `GetTopMovies` and `Function1` code is uncommented and working, you are ready to complete this project, and you don't need to do any more work with the function app (it doesn't matter if you chose isolated or non-isolated).
+If you already worked through Chapter 6, you don't need to do anything else with Azure Functions (unless you didn't implement the `GetTopMovies` code).  If the `GetTopMovies` and `Function1` code is uncommented and working, you are ready to complete this project, and you don't need to do any more work with the function app (it doesn't matter if you chose isolated or non-isolated).
 
 In the case where you skipped chapter 6, or you just want a fresh start, you could deploy a new consumption tier Function App and make sure that you have deployed two HTTP trigger functions (the default for `Function1` and another for the `GetTopMovies`).  
 
@@ -37,15 +37,15 @@ Create a new Azure Function App at Azure.  For this book and for my current reco
 
 ## Ensure the two functions work
 
-There are a number of functions pre-built in this code.  For chapter 11 (APIM), you only need to have `Function1` and `GetMovies` working.  The remaining functions are irrelevant to this chapter.
+There are a number of functions pre-built in this code.  For chapter 11 (APIM), you only need to have `Function1` and `GetTopMovies` working.  The remaining functions are irrelevant to this chapter.
 
 1. Make sure `Function1` works
 
     To get started, make sure `Function1` works, either in the Azure Portal or by making a PostMan or cURL request against it.
 
-1. Make sure the `GetMovies` function works.
+1. Make sure the `GetTopMovies` function works.
 
-    As with `Function1`, make sure you can execute the `GetMovies` function.
+    As with `Function1`, make sure you can execute the `GetTopMovies` function.
 
 ## Directory.Build.props
 
