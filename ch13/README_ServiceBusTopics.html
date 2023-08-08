@@ -371,7 +371,15 @@ code {
 <p>First, you must create the Namespace and Topic.</p>
 <ol>
 <li>Create the namespace</li>
-<li>Create the Topic (i.e. MoviesToReview).  Keep track of what you name the topic, as that will be critical. Whatever topic name you use will need to be set in the appsettings.json file (defaulted to MoviesToReview as per the book).</li>
+<li>Get the Root Shared Access Key from the namespace and put it into the Service Bus Administrator project secrets</li>
+<li>The ServiceBusAdministrator program will create the topic for you if you run that first with the Root Shared key on the namespace.</li>
+<li>The ServiceBusAdministrator program will also create the subscriptions for you.</li>
+</ol>
+<blockquote>
+<p><strong>Note</strong>: The Topic and Subscription keys are not secret so they are in the appsettings.json file.  The Root Shared Access Key is secret so it is in the secrets file.</p>
+</blockquote>
+<ol>
+<li>Run the program to completion and validate the topic and subscriptions are created in the portal.</li>
 </ol>
 <h2 id="create-the-sas-tokens">Create the SAS tokens</h2>
 <p>Next, Create SAS tokens</p>
