@@ -401,9 +401,14 @@ code {
 <pre class="hljs"><code><div>az login
 </div></code></pre>
 <ol>
-<li>Log in to your ACR (remember to enable admin, note that the password won't ever show in the terminal)</li>
+<li>Docker log in to your Azure ACR (remember to enable admin, note that the password won't ever show in the terminal)</li>
 </ol>
 <pre class="hljs"><code><div>docker login yourregistry.azurecr.io
+</div></code></pre>
+<ol>
+<li>Log into your Azure ACR</li>
+</ol>
+<pre class="hljs"><code><div>az acr login --name yourregistry
 </div></code></pre>
 <ol>
 <li>Tag the image for your ACR</li>

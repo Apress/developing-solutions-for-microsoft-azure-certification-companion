@@ -43,10 +43,16 @@ http://localhost:8080/
 az login
 ```  
 
-1. Log in to your ACR (remember to enable admin, note that the password won't ever show in the terminal)
+1. Docker log in to your Azure ACR (remember to enable admin, note that the password won't ever show in the terminal)
 
 ```bash
 docker login yourregistry.azurecr.io
+```
+
+1. Log into your Azure ACR
+
+```bash
+az acr login --name yourregistry
 ```
 
 1. Tag the image for your ACR
