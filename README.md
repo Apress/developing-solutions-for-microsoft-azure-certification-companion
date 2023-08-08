@@ -29,7 +29,8 @@ The following TOC can help to direct you to specific README files for chapters w
 - Chapter 3: No README file
 - Chapter 4: [Create Azure App Service Web Apps](ch04/README.md)
 - Chapter 5: [Azure Container Ecosystem: Azure Container Registry, Azure Container Instances, and Azure Container Apps](ch05/README.md)
-- Chapter 6: [Implement Azure Functions](ch06/README.md)
+- Chapter 6: [Implement Azure Functions](ch06/README_dotnet.md)
+- Chapter 6: [Implement Azure Function - Isolated Runtime](ch06/README_dotnet-Isolated.md)
 
 ### Part III: Implement Azure Security
 - Chapter 7: [Implement User Authentication and Authorization](ch07/README.md)
