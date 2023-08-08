@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>README.md</title>
+<title>README_DN6.md</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
@@ -369,20 +369,24 @@ code {
 <p>This README is to help with the implementation of a couple of functions in this application.</p>
 <p>You will need to make sure to do a couple of things in order for this project to work correctly.</p>
 <h2 id="create-an-azure-function-app">Create an Azure Function App</h2>
-<p>Create a new Azure Function App at Azure.  For this book and for my current recommendation, I would suggest just doing Windows and .NET6 non-isolated.  If you want to try isolated .NET 6 or isolated .NET 7 there are a couple of hoops to jump through and I'm not going to be able to guarantee this code will work exactly as provided (I would recommend you start from scratch and then just add functionality as you go rather than trying to use these files).</p>
+<p>Create a new Azure Function App at Azure.  This version uses the older version of Azure Functions, not the isolated version.  You can use the isolated version, but you will need to make some changes to the code.  I recommend you start with the non-isolated version and then move to the isolated version once you have a good understanding of how the functions work.  The isolated version is a bit more complex to work with, but it is the future of Azure Functions.  I am also including a version where the isolated code can be explored.</p>
 <ol>
 <li>
 <p>With the Azure Function App Created, publish it</p>
-<p>You can choose to right-click and publish.  You can decide if you want to use slots. For practice, outside of the AZ-204 realm and just professional development, I would recommend you try building a slot, deploy with CI/CD to the slot, and then modify the YAML to work efficiently to deploy to the slot.</p>
-<p>Using slots creates a great deal more work.  You need to remember to</p>
+<p>You can choose to right-click and publish.  You can decide if you want to use slots. For this book, I recommend you do not use slots for ease of learning and to avoid spending too much time in this part of the book.</p>
+<p>For practice, outside of the AZ-204 realm and just professional development, I would recommend you try building a slot, deploy with CI/CD to the slot, and then modify the YAML to work efficiently to deploy to the slot, then look at what it takes to trigger a swap (or do it manually).</p>
+<p>Using slots creates a great deal more work, and is not trivial to manage for durable functions.  You need to remember to</p>
 <ul>
 <li>use different Durable Task hub names (you should consider using an environment variable to avoid pain here)</li>
 <li>make sure you have all the connection string information set correctly in the slots where you want to do stuff.  For example, is your event on the storage account triggering both test and production, just test, or just production.  This is all up to you, as long as you get it working in one of the places, then you will understand how to make this all work!</li>
 </ul>
+<blockquote>
+<p><strong>Note:</strong> you can have multiple triggers on the same blob storage.  As I update this, I have three triggers for three different functions, two of which are blob triggers triggers and one is an event grid trigger (they are all event subscriptions through event grid).  I can drop a single file and process with all three event/blob triggers in different versions of the function (isolated/non-isolated, using bindings/using SDK)</p>
+</blockquote>
 </li>
 <li>
 <p>If you choose to right-click and publish, do not try to bind the integrations in the Kudu console</p>
-<p>One thing I show in the book is how to reset the direction of the bindings for cosmos and the storage account (a very good thing to understand how these bindings work).  This is a futile endeavor and would only hold until the next deployment.</p>
+<p>One thing I show in the book is how to reset the direction of the bindings for cosmos and the storage account (a very good thing to understand how these bindings work).  This is a futile endeavor and would only hold until the next deployment. You would never do this in the real world.</p>
 </li>
 </ol>
 <h2 id="uncomment-code-and-run-as-you-go">Uncomment code and run as you go</h2>
@@ -390,7 +394,8 @@ code {
 <ol>
 <li>
 <p>Make sure Function1 works</p>
-<p>To get started, make sure Function1 works</p>
+<p>To get started, make sure Function1 works.  This is the default function that is created when you create a new function app.  It is a simple HTTP trigger that returns a string.  You can test it in the portal or in Postman.  If you are using slots, make sure you are testing the correct slot.</p>
+<p>For additional practice, get the <code>GetTopMovies</code> function working.</p>
 </li>
 </ol>
 <h2 id="event-grid-trigger">Event Grid trigger</h2>
@@ -434,13 +439,16 @@ code {
 <li>
 <p>Get the connection string for Cosmos DB</p>
 <p>Put the connection string into the Function App environment variables as <code>myCosmosConnection</code></p>
+<blockquote>
+<p><strong>Important:</strong> Do not forget to set both variables for the <code>myCosmosConnection</code> and <code>myStorageConnection</code> in the configuration on the function app.  If you do not do this, the function will not be able to use the bindings for processing from storage and to CosmosDB.</p>
+</blockquote>
 </li>
 </ol>
 <h2 id="drop-a-file">Drop a file</h2>
 <p>With everything set, upload a file and see the results</p>
 <ol>
 <li>
-<p>Use the SampleItems.xlsx file in the ParseExcel folder</p>
+<p>Use the <code>SampleItems.xlsx</code> file in the ParseExcel folder</p>
 <p>Upload the file and monitor the results as shown in the book.</p>
 </li>
 <li>
@@ -453,13 +461,15 @@ code {
 <ol>
 <li>
 <p>If using slots, make the task hub name dynamic</p>
-<p>To be honest, this part feels very fragile to me.  As the book outlines, you can set the hub name to a variable such as</p>
+<p>To be honest, this part feels very fragile to me (it would be easy to forget to do this and have some issues with slots interfering with one another).  As the book outlines, you can set the hub name to a variable such as</p>
 <pre class="hljs"><code><div>%mytaskhub%
 </div></code></pre>
-<p>And then override it in the configuration settings for the function app.</p>
+<p>Then override the variable in the configuration settings for the function app.</p>
 <ul>
 <li>
-<p>Add the variable to the configuration settings</p>
+<blockquote>
+<p><strong>Important:</strong> Do not forget to add the variable to the configuration settings</p>
+</blockquote>
 </li>
 <li>
 <p>update the host.json file and deploy</p>
@@ -476,13 +486,13 @@ code {
 </li>
 <li>
 <p>Use the trigger to start it</p>
-<p>The Start function triggers the orchestration</p>
-<p>The orchestration calls &quot;Say Hello&quot; to three different cities</p>
-<p>You can monitor them and see their calls in the portal.</p>
+<p>The <code>ChainFunctionOrchestrator_HttpStart</code> function triggers the orchestration, which you can trigger in the portal, via PostMAN or via cURL.</p>
+<p>The orchestration calls &quot;Say Hello&quot; to three different cities.  This is the default code generated by the function app.</p>
+<p>You can monitor the start, orchestrator, and SayHello functions to see their calls in the portal live metrics.</p>
 </li>
 </ol>
 <h2 id="function-fan-out--fan-in">Function Fan-Out / Fan-In</h2>
-<p>This pattern is a bit more tricky to work with</p>
+<p>This pattern is a bit more tricky to work with, but is really cool to see in action.</p>
 <ol>
 <li>
 <p>Uncomment the code or create a new function with an orchestration trigger.</p>
@@ -491,18 +501,21 @@ code {
 </li>
 <li>
 <p>Make sure to put variable in place for the <code>NumberOfWorkerFunctions</code> on the Function App in the configuration settings.</p>
+<p>If you forget to do this, you will get <code>0</code> as the number of worker functions and the fanning won't happen, nor will the final function fire.</p>
 </li>
 <li>
 <p>Need the http trigger to start it</p>
+<p>Trigger the function <code>FanInFanOutOrchestrator_HttpStart</code> to start processing, which triggers the <code>FanInFanOutOrchestrator</code></p>
 <p>Ensure you can kick off the process, the trigger calls to the orchestration, which calls <code>FirstFunction</code>.  FirstFunction retrieves the number set in the environment to determine how many functions to orchestrate.</p>
 </li>
 <li>
 <p>The orchestrator creates a parallel task list to execute multiple worker functions at once</p>
-<p>This will run the number you put into the environment variable <code>NumberOfWorkerFunctions</code> tasks in parallel.  I like <code>6</code> because of the output.  Feel free to try it with a few different low numbers.</p>
+<p>After getting the value from <code>FirstFunction</code>, the orchestrator will run whatever number you put into the environment variable <code>NumberOfWorkerFunctions</code> tasks in parallel.  I like <code>6</code> because of the output.  Feel free to try it with a few different low numbers.  Each parallel task runs the function <code>WorkerFunction</code></p>
 </li>
 <li>
 <p>When all functions have run, the total sum of the results is returned.</p>
-<p>The result is the sum of doubling every number.  If you put in the number 6, you get the answer to life, the universe, and everything (42).</p>
+<p>After the fan is completed, the <code>FinalFunction</code> is executed when fanning back in.</p>
+<p>The result of this effort is the sum of doubling every number.  If you put in the number 6, you get the answer to life, the universe, and everything (42).  As the workers accumulate the sum, the final function is called and the total is passed to it.</p>
 <p>If you fail to put a value in for the <code>NumberOfWorkerFunctions</code> the final function will still run but your sum total will be 0 and no worker functions will execute.  This makes sense when you think about practical use cases (i.e. there were no files to process today).</p>
 </li>
 <li>
@@ -516,10 +529,9 @@ code {
 </li>
 </ol>
 <h2 id="directorybuildprops">Directory.Build.props</h2>
-<p>The files are included to update this to .NET 7, but I continue to recommend only running this code in .NET 6 for now.</p>
-<p>Most importantly.  If you switch to .NET 7 do not forgot to update your worker runtime to <code>dotnet-isolated</code>.</p>
+<p>Reminder that this is only for .NET 6, but you can still use this file to determine all of the package versions.  Just don't try to change this to .NET 7 as there are too many breaking changes.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>By now you should be very familiar with Azure Functions, both traditional and durable.</p>
+<p>By now you should be very familiar with Azure Functions, both traditional and durable using the non-isolated function runtime in .NET 6.</p>
 
 </body>
 </html>

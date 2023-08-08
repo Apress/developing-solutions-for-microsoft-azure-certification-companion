@@ -6,20 +6,24 @@ You will need to make sure to do a couple of things in order for this project to
 
 ## Create an Azure Function App
 
-Create a new Azure Function App at Azure.  For this book and for my current recommendation, I would suggest just doing Windows and .NET6 non-isolated.  If you want to try isolated .NET 6 or isolated .NET 7 there are a couple of hoops to jump through and I'm not going to be able to guarantee this code will work exactly as provided (I would recommend you start from scratch and then just add functionality as you go rather than trying to use these files).
+Create a new Azure Function App at Azure.  This version needs to be any valid runtime but needs to use the Isolated version of the runtime.  .NET 7 and .NET 8+ will all be using only the isolated processing.
 
 1. With the Azure Function App Created, publish it
 
-    You can choose to right-click and publish.  You can decide if you want to use slots. For practice, outside of the AZ-204 realm and just professional development, I would recommend you try building a slot, deploy with CI/CD to the slot, and then modify the YAML to work efficiently to deploy to the slot.
+    You can choose to right-click and publish.  You can decide if you want to use slots. For this book, I recommend you do not use slots for ease of learning and to avoid spending too much time in this part of the book.
+    
+    For practice, outside of the AZ-204 realm and just professional development, I would recommend you try building a slot, deploy with CI/CD to the slot, and then modify the YAML to work efficiently to deploy to the slot, then look at what it takes to trigger a swap (or do it manually).
 
-    Using slots creates a great deal more work.  You need to remember to
+    Using slots creates a great deal more work, and is not trivial to manage for durable functions.  You need to remember to
 
     - use different Durable Task hub names (you should consider using an environment variable to avoid pain here)
     - make sure you have all the connection string information set correctly in the slots where you want to do stuff.  For example, is your event on the storage account triggering both test and production, just test, or just production.  This is all up to you, as long as you get it working in one of the places, then you will understand how to make this all work!
 
+    >**Note:** you can have multiple triggers on the same blob storage.  As I update this, I have three triggers for three different functions, two of which are blob triggers triggers and one is an event grid trigger (they are all event subscriptions through event grid).  I can drop a single file and process with all three event/blob triggers in different versions of the function (isolated/non-isolated, using bindings/using SDK)
+
 1. If you choose to right-click and publish, do not try to bind the integrations in the Kudu console
 
-    One thing I show in the book is how to reset the direction of the bindings for cosmos and the storage account (a very good thing to understand how these bindings work).  This is a futile endeavor and would only hold until the next deployment.  
+    One thing I show in the book is how to reset the direction of the bindings for cosmos and the storage account (a very good thing to understand how these bindings work).  This is a futile endeavor and would only hold until the next deployment. You would never do this in the real world.
 
 ## Uncomment code and run as you go
 
@@ -27,7 +31,9 @@ There are a number of functions pre-built in this code.  You will need to uncomm
 
 1. Make sure Function1 works
 
-    To get started, make sure Function1 works
+    To get started, make sure Function1 works.  This is the default function that is created when you create a new function app.  It is a simple HTTP trigger that returns a string.  You can test it in the portal or in Postman.  If you are using slots, make sure you are testing the correct slot.
+
+    For additional practice, get the `GetTopMovies` function working.
 
 ## Event Grid trigger
 
@@ -66,11 +72,13 @@ The second thing covered is the event grid trigger.  To make this work, you have
 
     Put the connection string into the Function App environment variables as `myCosmosConnection`
 
+    >**Important:** Do not forget to set both variables for the `myCosmosConnection` and `myStorageConnection` in the configuration on the function app.  If you do not do this, the function will not be able to use the bindings for processing from storage and to CosmosDB.
+
 ## Drop a file
 
 With everything set, upload a file and see the results
 
-1. Use the SampleItems.xlsx file in the ParseExcel folder
+1. Use the `SampleItems.xlsx` file in the ParseExcel folder
 
     Upload the file and monitor the results as shown in the book.
 
@@ -84,15 +92,15 @@ For the Durable Functions to work, there must be a Task Hub.  The name of the Ta
 
 1. If using slots, make the task hub name dynamic
 
-    To be honest, this part feels very fragile to me.  As the book outlines, you can set the hub name to a variable such as  
+    To be honest, this part feels very fragile to me (it would be easy to forget to do this and have some issues with slots interfering with one another).  As the book outlines, you can set the hub name to a variable such as  
 
     ```text
     %mytaskhub%
     ```  
 
-    And then override it in the configuration settings for the function app.
+    Then override the variable in the configuration settings for the function app.
 
-    - Add the variable to the configuration settings
+    - >**Important:** Do not forget to add the variable to the configuration settings
 
     - update the host.json file and deploy
 
@@ -106,15 +114,15 @@ The function chaining example is simple.  Either uncomment this code or create a
 
 1. Use the trigger to start it
 
-    The Start function triggers the orchestration
+    The `ChainFunctionOrchestrator_HttpStart` function triggers the orchestration, which you can trigger in the portal, via PostMAN or via cURL.
 
-    The orchestration calls "Say Hello" to three different cities
+    The orchestration calls "Say Hello" to three different cities.  This is the default code generated by the function app.
 
-    You can monitor them and see their calls in the portal.
+    You can monitor the start, orchestrator, and SayHello functions to see their calls in the portal live metrics.
 
 ## Function Fan-Out / Fan-In
 
-This pattern is a bit more tricky to work with
+This pattern is a bit more tricky to work with, but is really cool to see in action.
 
 1. Uncomment the code or create a new function with an orchestration trigger.
 
@@ -124,17 +132,23 @@ This pattern is a bit more tricky to work with
 
 1. Make sure to put variable in place for the `NumberOfWorkerFunctions` on the Function App in the configuration settings.
 
+    If you forget to do this, you will get `0` as the number of worker functions and the fanning won't happen, nor will the final function fire.
+
 1. Need the http trigger to start it
+
+    Trigger the function `FanInFanOutOrchestrator_HttpStart` to start processing, which triggers the `FanInFanOutOrchestrator`
 
     Ensure you can kick off the process, the trigger calls to the orchestration, which calls `FirstFunction`.  FirstFunction retrieves the number set in the environment to determine how many functions to orchestrate.
 
 1. The orchestrator creates a parallel task list to execute multiple worker functions at once
 
-    This will run the number you put into the environment variable `NumberOfWorkerFunctions` tasks in parallel.  I like `6` because of the output.  Feel free to try it with a few different low numbers.
+    After getting the value from `FirstFunction`, the orchestrator will run whatever number you put into the environment variable `NumberOfWorkerFunctions` tasks in parallel.  I like `6` because of the output.  Feel free to try it with a few different low numbers.  Each parallel task runs the function `WorkerFunction`
 
 1. When all functions have run, the total sum of the results is returned. 
 
-    The result is the sum of doubling every number.  If you put in the number 6, you get the answer to life, the universe, and everything (42).
+    After the fan is completed, the `FinalFunction` is executed when fanning back in.
+
+    The result of this effort is the sum of doubling every number.  If you put in the number 6, you get the answer to life, the universe, and everything (42).  As the workers accumulate the sum, the final function is called and the total is passed to it.
 
     If you fail to put a value in for the `NumberOfWorkerFunctions` the final function will still run but your sum total will be 0 and no worker functions will execute.  This makes sense when you think about practical use cases (i.e. there were no files to process today).  
 
@@ -147,10 +161,8 @@ This pattern is a bit more tricky to work with
 
 ## Directory.Build.props
 
-The files are included to update this to .NET 7, but I continue to recommend only running this code in .NET 6 for now. 
-
-Most importantly.  If you switch to .NET 7 do not forgot to update your worker runtime to `dotnet-isolated`.
+Reminder that this is only for .NET 7, but you can still use this file to determine all of the package versions. 
 
 ## Conclusion
 
-By now you should be very familiar with Azure Functions, both traditional and durable.
+By now you should be very familiar with Azure Functions, both traditional and durable using the `isolated` function runtime in .NET for foreseeable future versions.
