@@ -367,15 +367,23 @@ code {
   </script>
 <h1 id="simple-mvc-web">Simple MVC Web</h1>
 <h2 id="chapter-4-related">Chapter 4 related</h2>
-<p>If you completed chapter 4, utilize your existing files.  If not, you can use this set of files.  Note that the following steps should have been completed during chapter 4</p>
+<p>If you completed chapter 4, utilize your existing files (chapter 7 is optional).  If you did not do chapter 4, you can use this set of files.  Note that the following steps should have been completed during chapter 4.</p>
+<p>Note that the starter files for this project do not include any of the settings for chapter 7 in place.</p>
 <h3 id="create-a-basic-database">Create a basic database</h3>
 <p>You'll need to utilize a database if you want to do the authorization stuff later in the book.  For now, you could skip this, but if you deploy a Basic Azure SQL database, it will run about $5/month.</p>
 <ol>
 <li>
 <p>Deploy the Basic SQL Database</p>
+<ul>
+<li>Ensure the server firewall allows Azure services</li>
+<li>Optionally allow your client IP for further connection/debugging.</li>
+</ul>
 </li>
 <li>
-<p>Manually migrate the database or just uncomment the code to enable automatic migrations (in the Program.cs file).</p>
+<p>Manually migrate the database or just uncomment the code to enable automatic migrations on app startup (in the Program.cs file).</p>
+</li>
+<li>
+<p>Ensure that connection strings are set up correctly in the usersettings.json file and that the app service has the connection string in place.</p>
 </li>
 </ol>
 <h3 id="create-the-app-service-plan-and-app-service">Create the App Service Plan and App Service</h3>
@@ -391,9 +399,15 @@ code {
 </li>
 <li>
 <p>If using the database, ensure the migrations (manual by connecting from your machine and running them, or via code in Program.cs)</p>
+<ul>
+<li>Also ensure the connection string is set up in the app service</li>
+</ul>
 </li>
 <li>
 <p>Validate the site is working</p>
+<ul>
+<li>Register a user (or log in with a registered user)</li>
+</ul>
 </li>
 </ol>
 <h3 id="review-the-text">Review the text</h3>
@@ -403,32 +417,36 @@ code {
 <li>Scaling the app</li>
 </ol>
 <h3 id="important">Important</h3>
-<p>This website and code is used in a couple of chapters (8 and 10).  Those chapters build on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app when you are done with the chapter.  Otherwise, leave the site in place until you have completed chapters 8 and 10</p>
+<p>This website and code is used in a couple of chapters (4, 5, 7, 8, 9, and 10).  Each chapter builds on this site.  If you want practice or you don't want to keep services alive, feel free to destroy the web app and database when you are done with each chapter and restore later.  Otherwise, leave the site and database in place until you have completed work through chapter 10.</p>
 <ul>
 <li><input type="checkbox" id="checkbox0"><label for="checkbox0">Configure your application insights (Utilized in Chapter 10, but deployed with the App Service)</label></li>
 <li><input type="checkbox" id="checkbox1"><label for="checkbox1">Most of the code is present, a lot is commented out until you get to later chapters (security for KeyVault, working with Azure App Configuration, Redis Cache, etc)</label></li>
 <li><input type="checkbox" id="checkbox2"><label for="checkbox2">make sure to check the connection string and update the database if using from this point on</label></li>
 <li><input type="checkbox" id="checkbox3"><label for="checkbox3">Review settings in Directory.Build.props for package versions (use Nuget package manager to update)</label></li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">Modify to use the Directory.Build.props for .NET 7 or future versions</label></li>
 </ul>
 <h2 id="chapter-7">Chapter 7</h2>
-<p>If you skipped chapter 7, you don't need to turn on the identity for this chapter to work.  Therefore, you can leave the code commented out regarding chapter 7 in the Program.cs file (if it's not commented out, just leave it alone, if it's commented out, just leave it alone).</p>
+<p>If you skipped chapter 7 (it is optional), or didn't do the web project work in chapter 7, you don't need to turn on the identity for this chapter to work.  Therefore, you can leave the code as you have it for chapter 7 in the Program.cs file (if it's not commented out, then leave it in place, if it's commented out, just leave it alone, there is no need to implement it for this chapter to work).</p>
 <h2 id="chapter-8">Chapter 8</h2>
-<p>Assuming you are done with chapter 4 work and have your own files, you won't need these solution files.  If you are just trying to start here, note that the default files for chapter 4 are used to start this chapter too, because at this point I'm assuming you did not do chapter 4 if you are using my files.</p>
-<p>Please note that the default does not:</p>
+<p>Assuming you are done with chapter 4 (and optionally 7) work and have your own files, you won't need these solution files.  If you are just trying to start here, note that the default files for chapter 4 are used to start this chapter too.  Review the <code>Program.cs</code> file to see if you need to make any changes to the code to get it to work for you.</p>
+<p>Please note that the default code does not:</p>
 <ul>
 <li>
-<p>Implement Identity (see the comments in Program.cs for chapter 7).  Leave this alone if you have skipped chapter 7 and/or you are not set up for working with Identity at this time.</p>
+<p>Implement Identity (see the comments in Program.cs for chapter 7).  Leave this alone if you have skipped chapter 7 and/or you are not set up for working with Identity at this time.  Again, if you did set it up prior to this point, then just leave it set up.</p>
 </li>
 <li>
 <p>Automate migrations (you need a database configured, and if you want to use identity in your app you'll need to implement that)</p>
 </li>
 <li>
-<p>require any caching or content delivery (you will implement caching in the next chapter)</p>
+<p>require any caching or content delivery (you will implement caching in chapter 9)</p>
 </li>
 </ul>
 <h3 id="step-1-learn-about-managed-identities">Step 1, Learn about Managed Identities</h3>
 <p>In order to complete the work for this chapter, you need to work with Managed Identities.  Make sure that you review the first part of the chapter to learn about identities.  If you have questions about some of the directions that follow, make sure you've reviewed the learning because the answer is likely in the book already.</p>
 <h3 id="step-2-key-vault">Step 2, Key Vault</h3>
+<blockquote>
+<p><strong>Note:</strong> this is a high-level overview and does not go in exactly the same order as the book.  I recommend you walk through the pages of the book with this code and use this guide as a summary of the things you've accomplished.</p>
+</blockquote>
 <p>Once you have learned about identities, it's time to create a Key Vault.  You will then connect your deployed App Service to the Key Vault to retrieve the secret information</p>
 <ol>
 <li>
@@ -440,8 +458,8 @@ code {
 </li>
 <li>
 <p>Add a value for the secret into KeyVault</p>
-<p>Retrive the URI
-Leverage the URI to create a reference from the App Service to the Key Vault Secret</p>
+<p>Retrive the URI</p>
+<p>Leverage the URI in the app configuraation settings to create a reference from the App Service to the Key Vault Secret</p>
 <blockquote>
 <p><strong>Note</strong>: You will see an error at this point, and the page will just show the secret URI instead of the secret value.  This is expected.</p>
 </blockquote>

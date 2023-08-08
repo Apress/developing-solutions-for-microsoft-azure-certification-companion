@@ -6,9 +6,13 @@ You will need to make sure to do a couple of things in order for this project to
 
 ## Notes
 
-If you already worked through Chapter 6, you don't need to do anything else with Azure Functions (unless you didn't implement the `GetMovies` code).  If the `GetMovies` and `Function1` code is uncommented and working, you are ready to complete this project.
+If you already worked through Chapter 6, you don't need to do anything else with Azure Functions (unless you didn't implement the `GetMovies` code).  If the `GetTopMovies` and `Function1` code is uncommented and working, you are ready to complete this project, and you don't need to do any more work with the function app (it doesn't matter if you chose isolated or non-isolated).
 
-In the case where you skipped chapter 6, or you just want a fresh start, deploy a new consumption tier Function App and make sure that you have deployed the sample code provided.  For convenience, the sample code in this chapter already has `Function1` and `GetMovies` ready to go, and the rest of the functions are commented out.
+In the case where you skipped chapter 6, or you just want a fresh start, you could deploy a new consumption tier Function App and make sure that you have deployed two HTTP trigger functions (the default for `Function1` and another for the `GetTopMovies`).  
+
+For convenience, the sample code in this chapter already has `Function1` and `GetTopMovies` ready to go, and the rest of the functions are commented out. 
+
+>**Note:** Once again, this is the exact same code as per chapter 6, and you don't need to deploy a new app if you already completed that work and have your functions in place.
 
 ## Deploy an APIM
 
